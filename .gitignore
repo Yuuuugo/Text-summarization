@@ -1,0 +1,4 @@
+cnn_daylimail/
+model.pt
+*.csv
+tmp_trainer/
