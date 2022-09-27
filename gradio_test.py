@@ -5,7 +5,7 @@ from transformers import T5Tokenizer
 
 def summarize(text):
     tokenizer = T5Tokenizer.from_pretrained("t5-small")
-    model = torch.load("model.pt")
+    model = torch.load("model.pt", map_location=torch.device('cpu'))
     predictions = []
     tokenized_sentence = tokenizer.batch_encode_plus(
         [text], max_length=512, pad_to_max_length=True, return_tensors="pt"
@@ -27,4 +27,4 @@ def summarize(text):
     return predictions
 
 
-gr.Interface(fn=summarize, inputs=["text"], outputs=["text"]).launch()
+gr.Interface(fn=summarize, inputs=["text"], outputs=["text"]).launch(share=True, server_port=7860)
